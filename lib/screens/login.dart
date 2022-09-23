@@ -1,7 +1,11 @@
+import 'package:firebase_app/screens/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Login extends StatefulWidget {
+  const Login({super.key});
+
   @override
   State<Login> createState() => _LoginState();
 }
@@ -25,72 +29,200 @@ class _LoginState extends State<Login> {
     super.dispose();
   }
 
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Container(
-          child: Column(
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Welcome",
-                      style: TextStyle(
-                        fontSize: 40.0,
-                        fontWeight: FontWeight.w700,
-                        fontFamily: 'Roboto',
+        backgroundColor: Colors.black,
+        resizeToAvoidBottomInset: true,
+        body: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: Column(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text(
+                        "Welcome",
+                        style: TextStyle(
+                          fontSize: 40.0,
+                          fontWeight: FontWeight.w700,
+                          fontFamily: 'Roboto',
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Text(
-                      "Sign In to continue",
-                      style: TextStyle(
-                        fontSize: 25.0,
-                        color: Colors.grey,
+                      SizedBox(
+                        height: 10.0,
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 20.0,
-              ),
-              TextField(
-                controller: emailcontroller,
-                cursorColor: Colors.white,
-                textInputAction: TextInputAction.next,
-                decoration: InputDecoration(
-                  labelText: "Email",
-                  errorText: validatePassword(emailcontroller.text),
-                ),
-              ),
-              const SizedBox(
-                height: 10.0,
-              ),
-              TextField(
-                controller: passwordcontroller,
-                cursorColor: Colors.white,
-                textInputAction: TextInputAction.next,
-                decoration: const InputDecoration(labelText: "Password"),
-                obscureText: true,
-              ),
-              ElevatedButton.icon(
-                onPressed: sign_in,
-                icon: const Icon(Icons.lock_open),
-                label: const Text(
-                  "Sign In",
-                  style: TextStyle(
-                    fontSize: 24.0,
+                      Text(
+                        "Sign In to continue",
+                        style: TextStyle(
+                          fontSize: 25.0,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ),
-            ],
+                const SizedBox(
+                  height: 10.0,
+                ),
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.all(20.0),
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(40.0),
+                          topRight: Radius.circular(40.0)),
+                    ),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 30.0,
+                        ),
+                        TextField(
+                          controller: emailcontroller,
+                          cursorColor: Colors.white,
+                          textInputAction: TextInputAction.next,
+                          style: TextStyle(
+                            fontSize: 25.0,
+                          ),
+                          decoration: InputDecoration(
+                            labelText: "Email",
+                            errorText: validatePassword(emailcontroller.text),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              gapPadding: 4.0,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10.0,
+                        ),
+                        TextField(
+                          controller: passwordcontroller,
+                          cursorColor: Colors.white,
+                          textInputAction: TextInputAction.next,
+                          style: TextStyle(
+                            fontSize: 25.0,
+                          ),
+                          decoration: InputDecoration(
+                            labelText: "Password",
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide(color: Colors.black),
+                            ),
+                          ),
+                          obscureText: true,
+                        ),
+                        SizedBox(
+                          height: 30.0,
+                        ),
+                        SizedBox(
+                          width: 200.0,
+                          height: 50.0,
+                          child: ElevatedButton.icon(
+                            onPressed: sign_in,
+                            icon: const Icon(Icons.lock_open),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Color.fromARGB(255, 0, 135, 117),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                            ),
+                            label: const Text(
+                              "Sign In",
+                              style: TextStyle(
+                                fontSize: 24.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 30.0,
+                        ),
+                        Text(
+                          "OR",
+                          style: TextStyle(
+                            fontSize: 25.0,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            IconButton(
+                              onPressed: () {},
+                              icon: FaIcon(FontAwesomeIcons.google),
+                              color: Colors.red,
+                              iconSize: 40.0,
+                            ),
+                            SizedBox(
+                              width: 10.0,
+                            ),
+                            IconButton(
+                              onPressed: () {},
+                              icon: FaIcon(FontAwesomeIcons.facebook),
+                              color: Colors.blue,
+                              iconSize: 40.0,
+                            ),
+                            SizedBox(
+                              width: 10.0,
+                            ),
+                            IconButton(
+                              onPressed: () {},
+                              icon: FaIcon(FontAwesomeIcons.twitter),
+                              color: Colors.blue,
+                              iconSize: 40.0,
+                            ),
+                            SizedBox(
+                              width: 10.0,
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Create new account,",
+                              style: TextStyle(fontSize: 20.0),
+                            ),
+                            InkWell(
+                              child: Text(
+                                " Register",
+                                style: TextStyle(
+                                  fontSize: 20.0,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Register()));
+                              },
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -105,13 +237,13 @@ class _LoginState extends State<Login> {
       );
     } on FirebaseAuthException catch (ex) {
       if (ex.code.toString() == 'user-not-found') {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text("User Not found"),
           backgroundColor: Colors.amberAccent,
         ));
       }
       if (ex.code.toString() == 'wrong-password') {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text("Wrong Password"),
           backgroundColor: Colors.amberAccent,
         ));

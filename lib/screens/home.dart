@@ -10,10 +10,10 @@ class Home extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Home"),
+        title: const Text("Home"),
       ),
       body: Container(
-        padding: EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(15.0),
         child: Center(
           child: Column(
             children: [
@@ -22,8 +22,8 @@ class Home extends StatelessWidget {
                 onPressed: () {
                   FirebaseAuth.instance.signOut();
                 },
-                icon: Icon(Icons.door_back_door),
-                label: Text("Sign Out"),
+                icon: const Icon(Icons.door_back_door),
+                label: const Text("Sign Out"),
               )
             ],
           ),
