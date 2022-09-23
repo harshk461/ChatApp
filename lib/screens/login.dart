@@ -37,7 +37,7 @@ class _LoginState extends State<Login> {
         resizeToAvoidBottomInset: true,
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
-          child: Container(
+          child: SizedBox(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             child: Column(
@@ -74,9 +74,9 @@ class _LoginState extends State<Login> {
                 ),
                 Expanded(
                   child: Container(
-                    padding: EdgeInsets.all(20.0),
+                    padding: const EdgeInsets.all(20.0),
                     width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Colors.green,
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(40.0),
@@ -84,19 +84,18 @@ class _LoginState extends State<Login> {
                     ),
                     child: Column(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 30.0,
                         ),
                         TextField(
                           controller: emailcontroller,
                           cursorColor: Colors.white,
                           textInputAction: TextInputAction.next,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 25.0,
                           ),
                           decoration: InputDecoration(
                             labelText: "Email",
-                            errorText: validatePassword(emailcontroller.text),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
                               gapPadding: 4.0,
@@ -110,19 +109,19 @@ class _LoginState extends State<Login> {
                           controller: passwordcontroller,
                           cursorColor: Colors.white,
                           textInputAction: TextInputAction.next,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 25.0,
                           ),
                           decoration: InputDecoration(
                             labelText: "Password",
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
-                              borderSide: BorderSide(color: Colors.black),
+                              borderSide: const BorderSide(color: Colors.black),
                             ),
                           ),
                           obscureText: true,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 30.0,
                         ),
                         SizedBox(
@@ -132,7 +131,8 @@ class _LoginState extends State<Login> {
                             onPressed: sign_in,
                             icon: const Icon(Icons.lock_open),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Color.fromARGB(255, 0, 135, 117),
+                              backgroundColor:
+                                  const Color.fromARGB(255, 0, 135, 117),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -145,16 +145,16 @@ class _LoginState extends State<Login> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 30.0,
                         ),
-                        Text(
+                        const Text(
                           "OR",
                           style: TextStyle(
                             fontSize: 25.0,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20.0,
                         ),
                         Row(
@@ -163,45 +163,45 @@ class _LoginState extends State<Login> {
                           children: [
                             IconButton(
                               onPressed: () {},
-                              icon: FaIcon(FontAwesomeIcons.google),
+                              icon: const FaIcon(FontAwesomeIcons.google),
                               color: Colors.red,
                               iconSize: 40.0,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10.0,
                             ),
                             IconButton(
                               onPressed: () {},
-                              icon: FaIcon(FontAwesomeIcons.facebook),
+                              icon: const FaIcon(FontAwesomeIcons.facebook),
                               color: Colors.blue,
                               iconSize: 40.0,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10.0,
                             ),
                             IconButton(
                               onPressed: () {},
-                              icon: FaIcon(FontAwesomeIcons.twitter),
+                              icon: const FaIcon(FontAwesomeIcons.twitter),
                               color: Colors.blue,
                               iconSize: 40.0,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10.0,
                             ),
                           ],
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20.0,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
+                            const Text(
                               "Create new account,",
                               style: TextStyle(fontSize: 20.0),
                             ),
                             InkWell(
-                              child: Text(
+                              child: const Text(
                                 " Register",
                                 style: TextStyle(
                                   fontSize: 20.0,
@@ -212,7 +212,8 @@ class _LoginState extends State<Login> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Register()));
+                                        builder: (context) =>
+                                            const Register()));
                               },
                             )
                           ],

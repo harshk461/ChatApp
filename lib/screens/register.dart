@@ -1,6 +1,7 @@
+import 'package:firebase_app/screens/home.dart';
 import 'package:firebase_app/screens/login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -29,7 +30,7 @@ class _RegisterState extends State<Register> {
         resizeToAvoidBottomInset: true,
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
-          child: Container(
+          child: SizedBox(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             child: Column(
@@ -66,9 +67,9 @@ class _RegisterState extends State<Register> {
                 ),
                 Expanded(
                   child: Container(
-                    padding: EdgeInsets.all(20.0),
+                    padding: const EdgeInsets.all(20.0),
                     width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Colors.cyan,
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(40.0),
@@ -76,144 +77,142 @@ class _RegisterState extends State<Register> {
                     ),
                     child: Column(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 30.0,
                         ),
                         TextField(
                           controller: emailcontroller,
                           cursorColor: Colors.white,
                           textInputAction: TextInputAction.next,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 25.0,
                           ),
                           decoration: InputDecoration(
                             labelText: "Email",
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
-                              borderSide: BorderSide(),
+                              borderSide: const BorderSide(),
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10.0,
                         ),
                         TextField(
                           controller: usernamecontroller,
                           cursorColor: Colors.white,
                           textInputAction: TextInputAction.next,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 25.0,
                           ),
                           decoration: InputDecoration(
                             labelText: "Username",
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.black,
                               ),
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10.0,
                         ),
                         TextField(
                           controller: passwordcontroller,
                           cursorColor: Colors.white,
                           textInputAction: TextInputAction.next,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 25.0,
                           ),
                           decoration: InputDecoration(
                             labelText: "Password",
                             errorText:
                                 validatePassword(passwordcontroller.text),
-                            errorStyle: TextStyle(
+                            errorStyle: const TextStyle(
                               color: Colors.white,
                               fontSize: 15.0,
                             ),
                             errorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.red,
                               ),
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.black,
                               ),
                             ),
                           ),
                           obscureText: true,
                         ),
-                        SizedBox(
-                          height: 10.0,
-                        ),
                         TextField(
                           controller: cnfpasswardcontroller,
                           cursorColor: Colors.white,
                           textInputAction: TextInputAction.next,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 25.0,
                           ),
                           decoration: InputDecoration(
                             labelText: "Confirm Password",
                             errorText:
                                 validatePassword(cnfpasswardcontroller.text),
-                            errorStyle: TextStyle(
+                            errorStyle: const TextStyle(
                               color: Colors.white,
                               fontSize: 15.0,
                             ),
                             errorBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
+                              borderSide: const BorderSide(
                                 color: Colors.red,
                               ),
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
-                              borderSide:
-                                  BorderSide(width: 2.0, color: Colors.black),
+                              borderSide: const BorderSide(
+                                  width: 2.0, color: Colors.black),
                             ),
                           ),
                           obscureText: true,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10.0,
                         ),
                         SizedBox(
                           width: 200.0,
                           height: 50.0,
                           child: ElevatedButton.icon(
-                            onPressed: () {},
+                            onPressed: Register,
                             icon: const Icon(Icons.lock_open),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Color.fromARGB(255, 0, 135, 117),
+                              backgroundColor:
+                                  const Color.fromARGB(255, 0, 135, 117),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                             ),
                             label: const Text(
-                              "Sign In",
+                              "Sign Up",
                               style: TextStyle(
                                 fontSize: 24.0,
                               ),
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20.0,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
+                            const Text(
                               "Already have account,",
                               style: TextStyle(fontSize: 20.0),
                             ),
                             InkWell(
-                              child: Text(
+                              child: const Text(
                                 " Login",
                                 style: TextStyle(
                                   fontSize: 20.0,
@@ -224,7 +223,7 @@ class _RegisterState extends State<Register> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Login()));
+                                        builder: (context) => const Login()));
                               },
                             )
                           ],
@@ -239,5 +238,30 @@ class _RegisterState extends State<Register> {
         ),
       ),
     );
+  }
+
+  Future Register() async {
+    try {
+      final newUser = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+              email: emailcontroller.text.trim(),
+              password: passwordcontroller.text.trim());
+      if (newUser != null) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => const Home()));
+      }
+    } on FirebaseAuthException catch (ex) {
+      if (ex.code == 'email-already-in-use') {
+        print(ex.code);
+        setState(() {
+          emailcontroller.text = '';
+          passwordcontroller.text = '';
+        });
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("User Already Exists"),
+          backgroundColor: Colors.amber,
+        ));
+      }
+    }
   }
 }
