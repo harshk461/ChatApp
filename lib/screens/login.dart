@@ -1,4 +1,6 @@
+import 'package:firebase_app/screens/forgot_pass.dart';
 import 'package:firebase_app/screens/register.dart';
+import 'package:firebase_app/utils/spinner.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -77,7 +79,7 @@ class _LoginState extends State<Login> {
                     padding: const EdgeInsets.all(20.0),
                     width: MediaQuery.of(context).size.width,
                     decoration: const BoxDecoration(
-                      color: Colors.green,
+                      color: Colors.cyan,
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(40.0),
                           topRight: Radius.circular(40.0)),
@@ -98,7 +100,10 @@ class _LoginState extends State<Login> {
                             labelText: "Email",
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
-                              gapPadding: 4.0,
+                              borderSide: const BorderSide(
+                                color: Colors.black,
+                                width: 3.0,
+                              ),
                             ),
                           ),
                         ),
@@ -122,7 +127,25 @@ class _LoginState extends State<Login> {
                           obscureText: true,
                         ),
                         const SizedBox(
-                          height: 30.0,
+                          height: 10.0,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ForgotPage()));
+                          },
+                          child: Align(
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                              "Forgot password",
+                              style: TextStyle(fontSize: 20.0),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20.0,
                         ),
                         SizedBox(
                           width: 200.0,

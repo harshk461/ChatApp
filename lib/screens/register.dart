@@ -68,7 +68,6 @@ class _RegisterState extends State<Register> {
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.all(20.0),
-                    width: MediaQuery.of(context).size.width,
                     decoration: const BoxDecoration(
                       color: Colors.cyan,
                       borderRadius: BorderRadius.only(
@@ -86,6 +85,7 @@ class _RegisterState extends State<Register> {
                           textInputAction: TextInputAction.next,
                           style: const TextStyle(
                             fontSize: 25.0,
+                            color: Colors.white,
                           ),
                           decoration: InputDecoration(
                             labelText: "Email",
@@ -242,13 +242,20 @@ class _RegisterState extends State<Register> {
 
   Future Register() async {
     try {
-      final newUser = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(
-              email: emailcontroller.text.trim(),
-              password: passwordcontroller.text.trim());
-      if (newUser != null) {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const Home()));
+      if (passwordcontroller.text.trim() != cnfpasswardcontroller.text.trim()) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Enter Correct Password"),
+          backgroundColor: Colors.amber,
+        ));
+      } else {
+        final newUser = await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(
+                email: emailcontroller.text.trim(),
+                password: passwordcontroller.text.trim());
+        if (newUser != null) {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => const Home()));
+        }
       }
     } on FirebaseAuthException catch (ex) {
       if (ex.code == 'email-already-in-use') {

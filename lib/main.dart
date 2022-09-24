@@ -1,6 +1,5 @@
 import 'package:firebase_app/screens/home.dart';
 import 'package:firebase_app/screens/login.dart';
-import 'package:firebase_app/utils/spinner.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
