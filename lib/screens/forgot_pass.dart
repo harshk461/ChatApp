@@ -1,3 +1,4 @@
+import 'package:firebase_app/screens/otp_page.dart';
 import 'package:flutter/material.dart';
 
 class ForgotPage extends StatelessWidget {
@@ -54,9 +55,35 @@ class ForgotPage extends StatelessWidget {
                       ),
                     ),
                   ),
+                  SizedBox(
+                    height: 30.0,
+                  ),
                   ElevatedButton(
-                    onPressed: () {},
-                    child: Text("Reset"),
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: ((context) => OTPPAge())));
+                    },
+                    style: ButtonStyle(
+                      fixedSize: MaterialStateProperty.all<Size>(
+                        Size(MediaQuery.of(context).size.width / 1.7, 50.0),
+                      ),
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.deepPurple),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                      ),
+                      padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+                        EdgeInsets.all(10.0),
+                      ),
+                    ),
+                    child: Text(
+                      "Reset",
+                      style: TextStyle(
+                        fontSize: 30.0,
+                      ),
+                    ),
                   ),
                 ],
               ),
