@@ -1,8 +1,12 @@
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter/material.dart';
 
+import 'login.dart';
+
 class OTPPAge extends StatelessWidget {
-  OTPPAge({super.key});
+  final String otp;
+  OTPPAge({super.key, required this.otp});
+  final otpcontroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -43,14 +47,7 @@ class OTPPAge extends StatelessWidget {
                   borderColor: Colors.cyan,
                   showFieldAsBox: true,
                   onSubmit: (String verificationCode) {
-                    showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: const Text("Verification Code"),
-                            content: Text('Code entered is $verificationCode'),
-                          );
-                        });
+                    otpcontroller.text = verificationCode;
                   }, // end onSub
                 ),
                 const SizedBox(
@@ -71,7 +68,16 @@ class OTPPAge extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                         )),
-                    onPressed: () {},
+                    onPressed: () {
+                      print(otp);
+                      if (otp == otpcontroller.text.toString().trim()) {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => Login()));
+                      } else {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(SnackBar(content: Text("Failure")));
+                      }
+                    },
                     child: const Text(
                       "Submit",
                       style: TextStyle(

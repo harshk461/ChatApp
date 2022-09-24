@@ -1,3 +1,4 @@
+import 'package:firebase_app/screens/change_password.dart';
 import 'package:firebase_app/screens/forgot_pass.dart';
 import 'package:firebase_app/screens/register.dart';
 import 'package:firebase_app/utils/spinner.dart';
@@ -151,7 +152,12 @@ class _LoginState extends State<Login> {
                           width: 200.0,
                           height: 50.0,
                           child: ElevatedButton.icon(
-                            onPressed: sign_in,
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ChangePassword()));
+                            },
                             icon: const Icon(Icons.lock_open),
                             style: ElevatedButton.styleFrom(
                               backgroundColor:

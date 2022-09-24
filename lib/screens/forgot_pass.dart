@@ -1,6 +1,5 @@
 import 'package:firebase_app/screens/otp_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_email_sender/flutter_email_sender.dart';
 
 class ForgotPage extends StatefulWidget {
   const ForgotPage({super.key});
@@ -69,9 +68,12 @@ class _ForgotPageState extends State<ForgotPage> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      sendmail();
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: ((context) => OTPPAge())));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) => OTPPAge(
+                                    otp: '123456',
+                                  ))));
                     },
                     style: ButtonStyle(
                       fixedSize: MaterialStateProperty.all<Size>(
@@ -102,20 +104,5 @@ class _ForgotPageState extends State<ForgotPage> {
         ),
       ),
     );
-  }
-
-  Future<void> sendmail() async {
-    final Email EmailBody = Email(
-      subject: "Test Subject of mail",
-      body: "Test Body",
-      recipients: ['testmailhk102@gmail.com'],
-      isHTML: false,
-    );
-
-    try {
-      await FlutterEmailSender.send(EmailBody);
-    } catch (e) {
-      print(e.toString());
-    }
   }
 }
