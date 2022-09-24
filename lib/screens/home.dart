@@ -25,7 +25,7 @@ class Home extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       "Home",
                       style: TextStyle(
                         fontSize: 25.0,
@@ -35,14 +35,14 @@ class Home extends StatelessWidget {
                       onPressed: () {
                         FirebaseAuth.instance.signOut();
                       },
-                      icon: FaIcon(FontAwesomeIcons.signOut),
+                      icon: const FaIcon(FontAwesomeIcons.signOut),
                     ),
                   ],
                 ),
               ),
-              SizedBox(height: 10.0),
+              const SizedBox(height: 10.0),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30.0),
                   color: Colors.amber,
@@ -50,13 +50,13 @@ class Home extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       "Chats",
                       style: TextStyle(fontSize: 25.0),
                     ),
                     IconButton(
                       onPressed: () {},
-                      icon: FaIcon(FontAwesomeIcons.add),
+                      icon: const FaIcon(FontAwesomeIcons.add),
                     )
                   ],
                 ),

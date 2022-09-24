@@ -134,9 +134,9 @@ class _LoginState extends State<Login> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => ForgotPage()));
+                                    builder: (context) => const ForgotPage()));
                           },
-                          child: Align(
+                          child: const Align(
                             alignment: Alignment.centerRight,
                             child: Text(
                               "Forgot password",

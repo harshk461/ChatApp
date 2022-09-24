@@ -13,29 +13,29 @@ class OTPPAge extends StatelessWidget {
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            padding: EdgeInsets.all(30.0),
+            padding: const EdgeInsets.all(30.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   "Verification Code",
                   style: TextStyle(
                     fontSize: 35.0,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10.0,
                 ),
-                Text(
+                const Text(
                   "We Texted you a code\nPlease enter it below",
                   style: TextStyle(
                     fontSize: 20.0,
                     color: Colors.grey,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 40.0,
                 ),
                 OtpTextField(
@@ -47,13 +47,13 @@ class OTPPAge extends StatelessWidget {
                         context: context,
                         builder: (context) {
                           return AlertDialog(
-                            title: Text("Verification Code"),
+                            title: const Text("Verification Code"),
                             content: Text('Code entered is $verificationCode'),
                           );
                         });
                   }, // end onSub
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30.0,
                 ),
                 Align(
@@ -61,7 +61,7 @@ class OTPPAge extends StatelessWidget {
                   child: ElevatedButton(
                     style: ButtonStyle(
                         fixedSize: MaterialStateProperty.all<Size>(
-                          Size(200.0, 50.0),
+                          const Size(200.0, 50.0),
                         ),
                         backgroundColor:
                             MaterialStateProperty.all<Color>(Colors.deepPurple),
@@ -72,7 +72,7 @@ class OTPPAge extends StatelessWidget {
                           ),
                         )),
                     onPressed: () {},
-                    child: Text(
+                    child: const Text(
                       "Submit",
                       style: TextStyle(
                         fontSize: 25.0,

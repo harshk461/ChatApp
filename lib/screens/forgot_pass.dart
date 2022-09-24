@@ -1,8 +1,16 @@
 import 'package:firebase_app/screens/otp_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 
-class ForgotPage extends StatelessWidget {
+class ForgotPage extends StatefulWidget {
   const ForgotPage({super.key});
+
+  @override
+  State<ForgotPage> createState() => _ForgotPageState();
+}
+
+class _ForgotPageState extends State<ForgotPage> {
+  final emailcontroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +20,7 @@ class ForgotPage extends StatelessWidget {
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Container(
-            padding: EdgeInsets.all(30.0),
+            padding: const EdgeInsets.all(30.0),
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             child: Center(
@@ -20,7 +28,7 @@ class ForgotPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Align(
+                  const Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
                       "Reset Password",
@@ -30,36 +38,38 @@ class ForgotPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10.0,
                   ),
-                  Align(
+                  const Align(
                     alignment: Alignment.centerLeft,
                     child: Text("Please Enter your email address"),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20.0,
                   ),
                   TextField(
-                    style: TextStyle(
+                    controller: emailcontroller,
+                    style: const TextStyle(
                       fontSize: 20.0,
                     ),
                     decoration: InputDecoration(
                       labelText: "Email",
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20.0),
-                        borderSide: BorderSide(
+                        borderSide: const BorderSide(
                           color: Colors.orange,
                           width: 3.0,
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30.0,
                   ),
                   ElevatedButton(
                     onPressed: () {
+                      sendmail();
                       Navigator.push(context,
                           MaterialPageRoute(builder: ((context) => OTPPAge())));
                     },
@@ -75,10 +85,10 @@ class ForgotPage extends StatelessWidget {
                         ),
                       ),
                       padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-                        EdgeInsets.all(10.0),
+                        const EdgeInsets.all(10.0),
                       ),
                     ),
-                    child: Text(
+                    child: const Text(
                       "Reset",
                       style: TextStyle(
                         fontSize: 30.0,
@@ -92,5 +102,20 @@ class ForgotPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> sendmail() async {
+    final Email EmailBody = Email(
+      subject: "Test Subject of mail",
+      body: "Test Body",
+      recipients: ['testmailhk102@gmail.com'],
+      isHTML: false,
+    );
+
+    try {
+      await FlutterEmailSender.send(EmailBody);
+    } catch (e) {
+      print(e.toString());
+    }
   }
 }
