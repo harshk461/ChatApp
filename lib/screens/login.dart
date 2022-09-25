@@ -1,6 +1,7 @@
 import 'package:firebase_app/screens/change_password.dart';
 import 'package:firebase_app/screens/forgot_pass.dart';
 import 'package:firebase_app/screens/register.dart';
+import 'package:firebase_app/screens/searchpage.dart';
 import 'package:firebase_app/utils/spinner.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -156,7 +157,7 @@ class _LoginState extends State<Login> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => ChangePassword()));
+                                      builder: (context) => SearchPage()));
                             },
                             icon: const Icon(Icons.lock_open),
                             style: ElevatedButton.styleFrom(
