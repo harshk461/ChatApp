@@ -1,4 +1,5 @@
 import 'package:firebase_app/screens/change_password.dart';
+import 'package:firebase_app/screens/error.dart';
 import 'package:firebase_app/screens/forgot_pass.dart';
 import 'package:firebase_app/screens/register.dart';
 import 'package:firebase_app/screens/searchpage.dart';
