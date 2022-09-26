@@ -154,12 +154,7 @@ class _LoginState extends State<Login> {
                           width: 200.0,
                           height: 50.0,
                           child: ElevatedButton.icon(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SearchPage()));
-                            },
+                            onPressed: sign_in,
                             icon: const Icon(Icons.lock_open),
                             style: ElevatedButton.styleFrom(
                               backgroundColor:

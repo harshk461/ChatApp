@@ -1,5 +1,6 @@
 import 'package:firebase_app/screens/home.dart';
 import 'package:firebase_app/screens/login.dart';
+import 'package:firebase_app/utils/spinner.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,8 @@ class MyApp extends StatelessWidget {
             return const Home();
           } else if (snapshot.hasError) {
             return const Text("Error");
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
+            return Spinner();
           } else {
             print(snapshot.connectionState.name);
             return const Login();

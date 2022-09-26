@@ -1,5 +1,10 @@
+import 'package:firebase_app/screens/login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'home.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -84,7 +89,6 @@ class _SearchPageState extends State<SearchPage> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0),
                         ),
-                        
                       ),
                       child: Text(
                         "Chat",
@@ -98,6 +102,36 @@ class _SearchPageState extends State<SearchPage> {
               ),
             );
           },
+        ),
+        floatingActionButton: SizedBox(
+          height: 60.0,
+          width: 60.0,
+          child: FloatingActionButton(
+            splashColor: Colors.amberAccent,
+            onPressed: () {
+              print(FirebaseAuth.instance.currentUser);
+              if (FirebaseAuth.instance.currentUser != null) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Home(),
+                  ),
+                );
+              } else {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Login(),
+                  ),
+                );
+              }
+            },
+            child: FaIcon(
+              FontAwesomeIcons.home,
+              color: Colors.blueGrey[400],
+              size: 30.0,
+            ),
+          ),
         ),
       ),
     );

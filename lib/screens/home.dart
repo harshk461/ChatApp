@@ -1,3 +1,4 @@
+import 'package:firebase_app/screens/searchpage.dart';
 import 'package:firebase_app/utils/chat_card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,20 @@ class Home extends StatelessWidget {
     ];
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.black,
+        floatingActionButton: SizedBox(
+          child: FloatingActionButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => SearchPage(),
+                ),
+              );
+            },
+            child: FaIcon(FontAwesomeIcons.add),
+          ),
+        ),
         body: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
@@ -42,9 +57,10 @@ class Home extends StatelessWidget {
               ),
               const SizedBox(height: 10.0),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 10.0, vertical: 10.0),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30.0),
+                  borderRadius: BorderRadius.circular(20.0),
                   color: Colors.amber,
                 ),
                 child: Row(
@@ -54,10 +70,6 @@ class Home extends StatelessWidget {
                       "Chats",
                       style: TextStyle(fontSize: 25.0),
                     ),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const FaIcon(FontAwesomeIcons.add),
-                    )
                   ],
                 ),
               ),
@@ -66,7 +78,10 @@ class Home extends StatelessWidget {
                   scrollDirection: Axis.vertical,
                   itemCount: userdata.length,
                   itemBuilder: (context, index) => ChatCard(
-                      name: userdata[index][0], about: userdata[index][1]),
+                    name: userdata[index][0],
+                    about: userdata[index][1],
+                    ID: (index + 1).toString(),
+                  ),
                 ),
               )
             ],
