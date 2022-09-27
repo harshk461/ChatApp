@@ -1,4 +1,5 @@
 import 'package:firebase_app/screens/login.dart';
+import 'package:firebase_app/utils/search_card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -15,10 +16,10 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   final searchcontroller = TextEditingController();
-  List<List<String>> search_data = [
-    ['Harsh', 'hey im using this'],
-    ['Harsh', 'hey im using this'],
-    ['Harsh', 'hey im using this'],
+  var search_data = <List<String>>[
+    ['Harsh1', 'hey im using this'],
+    ['Harsh2', 'hey im using this'],
+    ['Harsh3', 'hey im using this'],
   ];
 
   @override
@@ -55,53 +56,11 @@ class _SearchPageState extends State<SearchPage> {
         ),
         body: ListView.builder(
           itemCount: search_data.length,
-          itemBuilder: (context, index) {
-            return Expanded(
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                margin: EdgeInsets.symmetric(vertical: 10.0),
-                decoration: BoxDecoration(
-                  color: Colors.amber,
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          search_data[index][0],
-                          style: TextStyle(fontSize: 23.0, color: Colors.black),
-                        ),
-                        Text(
-                          search_data[index][1],
-                          style: TextStyle(
-                              fontSize: 19.0, color: Colors.grey[700]),
-                        ),
-                      ],
-                    ),
-                    ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        elevation: 0.0,
-                        backgroundColor: Colors.red,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                      ),
-                      child: Text(
-                        "Chat",
-                        style: TextStyle(
-                          fontSize: 23.0,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          },
+          itemBuilder: (context, index) => SearchCard(
+            name: search_data[index][0],
+            about: search_data[index][1],
+            ID: index.toString(),
+          ),
         ),
         floatingActionButton: SizedBox(
           height: 60.0,

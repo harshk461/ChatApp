@@ -1,4 +1,5 @@
 import 'package:firebase_app/screens/otp_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ForgotPage extends StatefulWidget {
@@ -68,12 +69,8 @@ class _ForgotPageState extends State<ForgotPage> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: ((context) => OTPPAge(
-                                    otp: '123456',
-                                  ))));
+                      FirebaseAuth.instance.sendPasswordResetEmail(
+                          email: emailcontroller.text.trim());
                     },
                     style: ButtonStyle(
                       fixedSize: MaterialStateProperty.all<Size>(

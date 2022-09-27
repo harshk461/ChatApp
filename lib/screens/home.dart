@@ -11,9 +11,9 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser!;
     List<List<String>> userdata = [
-      ['Harsh', 'Hey im using this'],
-      ['Harsh', 'Hey im using this'],
-      ['Harsh', 'Hey im using this'],
+      ['Harsh1', 'Hey im using this'],
+      ['Harsh2', 'Hey im using this'],
+      ['Harsh3', 'Hey im using this'],
     ];
     return SafeArea(
       child: Scaffold(

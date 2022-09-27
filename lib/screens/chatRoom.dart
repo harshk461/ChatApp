@@ -8,6 +8,8 @@ class ChatRoom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String Name = name;
+    String About = about;
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -34,7 +36,12 @@ class ChatRoom extends StatelessWidget {
           ),
         ],
       ),
-      body: Text(about),
+      body: ListView.builder(
+        itemCount: 100,
+        itemBuilder: (context, index) {
+          return Text("hello");
+        },
+      ),
       bottomSheet: Container(
         width: double.infinity,
         padding: EdgeInsets.all(10.0),
@@ -43,6 +50,9 @@ class ChatRoom extends StatelessWidget {
           children: [
             Expanded(
               child: TextField(
+                minLines: 1,
+                maxLines: 5,
+                style: TextStyle(fontSize: 23.0),
                 decoration: InputDecoration(
                     contentPadding: EdgeInsets.all(10.0),
                     hintText: "Message",
@@ -64,10 +74,21 @@ class ChatRoom extends StatelessWidget {
                     fillColor: Colors.grey),
               ),
             ),
-            IconButton(
-              onPressed: () {},
-              icon: FaIcon(
-                FontAwesomeIcons.paperPlane,
+            SizedBox(
+              width: 10.0,
+            ),
+            SizedBox(
+              height: 45.0,
+              width: 45.0,
+              child: FloatingActionButton(
+                splashColor: Colors.red,
+                onPressed: () {
+                  print(Name);
+                  print(About);
+                },
+                child: FaIcon(
+                  FontAwesomeIcons.paperPlane,
+                ),
               ),
             )
           ],
