@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class ChatRoom extends StatelessWidget {
+class ChatRoom extends StatefulWidget {
   final String name;
   final String about;
   const ChatRoom({super.key, required this.name, required this.about});
 
   @override
+  State<ChatRoom> createState() => _ChatRoomState();
+}
+
+class _ChatRoomState extends State<ChatRoom> {
+  @override
   Widget build(BuildContext context) {
-    String Name = name;
-    String About = about;
+    String Name = widget.name;
+    String About = widget.about;
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.amber,
         title: Text(
-          name,
+          widget.name,
           style: TextStyle(
             fontSize: 23.0,
           ),

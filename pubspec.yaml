@@ -46,6 +46,7 @@ dependencies:
   flutter_email_sender: ^5.1.0
   http: ^0.13.5
   firebase_storage: ^10.2.7
+  shared_preferences: ^2.0.15
   
   
 dev_dependencies:

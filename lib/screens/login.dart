@@ -1,4 +1,3 @@
-import 'package:firebase_app/screens/change_password.dart';
 import 'package:firebase_app/screens/error.dart';
 import 'package:firebase_app/screens/forgot_pass.dart';
 import 'package:firebase_app/screens/register.dart';
@@ -97,10 +96,12 @@ class _LoginState extends State<Login> {
                           cursorColor: Colors.white,
                           textInputAction: TextInputAction.next,
                           style: const TextStyle(
-                            fontSize: 25.0,
-                          ),
+                              fontSize: 25.0, color: Colors.black),
                           decoration: InputDecoration(
                             labelText: "Email",
+                            labelStyle: TextStyle(
+                              color: Colors.black,
+                            ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
                               borderSide: const BorderSide(
@@ -108,10 +109,17 @@ class _LoginState extends State<Login> {
                                 width: 3.0,
                               ),
                             ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: const BorderSide(
+                                color: Colors.lightGreenAccent,
+                                width: 3.0,
+                              ),
+                            ),
                           ),
                         ),
                         const SizedBox(
-                          height: 10.0,
+                          height: 15.0,
                         ),
                         TextField(
                           controller: passwordcontroller,
@@ -119,12 +127,23 @@ class _LoginState extends State<Login> {
                           textInputAction: TextInputAction.next,
                           style: const TextStyle(
                             fontSize: 25.0,
+                            color: Colors.black,
                           ),
                           decoration: InputDecoration(
                             labelText: "Password",
+                            labelStyle: TextStyle(
+                              color: Colors.black,
+                            ),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
                               borderSide: const BorderSide(color: Colors.black),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: const BorderSide(
+                                color: Colors.lightGreenAccent,
+                                width: 3.0,
+                              ),
                             ),
                           ),
                           obscureText: true,
@@ -142,8 +161,13 @@ class _LoginState extends State<Login> {
                           child: const Align(
                             alignment: Alignment.centerRight,
                             child: Text(
-                              "Forgot password",
-                              style: TextStyle(fontSize: 20.0),
+                              "Forgot password?",
+                              style: TextStyle(
+                                fontSize: 20.0,
+                                decoration: TextDecoration.underline,
+                                color: Colors.black87,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ),
                         ),

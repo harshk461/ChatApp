@@ -1,4 +1,4 @@
-import 'package:firebase_app/screens/otp_page.dart';
+import 'package:firebase_app/screens/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +11,13 @@ class ForgotPage extends StatefulWidget {
 
 class _ForgotPageState extends State<ForgotPage> {
   final emailcontroller = TextEditingController();
+
+  @override
+  void dispose() {
+    emailcontroller.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,9 +75,32 @@ class _ForgotPageState extends State<ForgotPage> {
                     height: 30.0,
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                      FirebaseAuth.instance.sendPasswordResetEmail(
-                          email: emailcontroller.text.trim());
+                    onPressed: () async {
+                      try {
+                        await FirebaseAuth.instance.sendPasswordResetEmail(
+                            email: emailcontroller.text.trim());
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text("Reset mail sent successfully"),
+                            backgroundColor: Colors.amber,
+                          ),
+                        );
+
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: ((context) => Login())));
+                      } on FirebaseAuthException catch (e) {
+                        print(e.code);
+                        if (e.code == 'user-not-found') {
+                          emailcontroller.text = '';
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text("User Not found"),
+                              backgroundColor: Colors.amber,
+                            ),
+                          );
+                        }
+                      }
                     },
                     style: ButtonStyle(
                       fixedSize: MaterialStateProperty.all<Size>(
@@ -100,6 +130,34 @@ class _ForgotPageState extends State<ForgotPage> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class DialogBox extends StatelessWidget {
+  const DialogBox({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: () => showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('AlertDialog Title'),
+          content: const Text('AlertDialog description'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'Cancel'),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'OK'),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      ),
+      child: const Text('Show Dialog'),
     );
   }
 }

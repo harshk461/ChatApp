@@ -1,11 +1,60 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_app/screens/searchpage.dart';
 import 'package:firebase_app/utils/chat_card.dart';
+import 'package:firebase_app/models/constants.dart';
+import 'package:firebase_app/utils/spinner.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  Stream<QuerySnapshot>? ChatRoomStream;
+
+  Widget ChatRoomList() {
+    return StreamBuilder<QuerySnapshot>(
+      stream: ChatRoomStream,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.active) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              itemCount: snapshot.data!.docs.length,
+              itemBuilder: (context, index) {
+                Map<String, dynamic> roomMap =
+                    snapshot.data!.docs[index].data() as Map<String, dynamic>;
+
+                return ChatCard(
+                  name: roomMap["chatroomID"]
+                      .toString()
+                      .replaceAll("_", "")
+                      .replaceAll(constants.Myname.toString(), ""),
+                  ID: roomMap["chatroomID"],
+                  about: '',
+                );
+              },
+            );
+          } else {
+            return Container();
+          }
+        } else {
+          return Spinner();
+        }
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

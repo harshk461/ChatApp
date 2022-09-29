@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_app/screens/home.dart';
 import 'package:firebase_app/screens/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -252,9 +253,13 @@ class _RegisterState extends State<Register> {
             .createUserWithEmailAndPassword(
                 email: emailcontroller.text.trim(),
                 password: passwordcontroller.text.trim());
+        FirebaseFirestore.instance.collection('users').add({
+          'name': usernamecontroller.text.trim(),
+          'email': emailcontroller.text.trim(),
+        });
         if (newUser != null) {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => const Home()));
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => const Login()));
         }
       }
     } on FirebaseAuthException catch (ex) {

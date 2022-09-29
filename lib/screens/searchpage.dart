@@ -1,7 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_app/models/constants.dart';
 import 'package:firebase_app/screens/login.dart';
 import 'package:firebase_app/utils/search_card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -15,12 +16,9 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  final searchcontroller = TextEditingController();
-  var search_data = <List<String>>[
-    ['Harsh1', 'hey im using this'],
-    ['Harsh2', 'hey im using this'],
-    ['Harsh3', 'hey im using this'],
-  ];
+  TextEditingController searchcontroller = TextEditingController();
+
+  QuerySnapshot? searchSnapShot;
 
   @override
   Widget build(BuildContext context) {
@@ -54,14 +52,7 @@ class _SearchPageState extends State<SearchPage> {
             ),
           ],
         ),
-        body: ListView.builder(
-          itemCount: search_data.length,
-          itemBuilder: (context, index) => SearchCard(
-            name: search_data[index][0],
-            about: search_data[index][1],
-            ID: index.toString(),
-          ),
-        ),
+        body: Text(""),
         floatingActionButton: SizedBox(
           height: 60.0,
           width: 60.0,
@@ -94,5 +85,13 @@ class _SearchPageState extends State<SearchPage> {
         ),
       ),
     );
+  }
+}
+
+getChatRoomID(String a, String b) {
+  if (a.substring(0, 1).codeUnitAt(0) > b.substring(0, 1).codeUnitAt(0)) {
+    return "$b\_$a";
+  } else {
+    return "$a\_$b";
   }
 }
