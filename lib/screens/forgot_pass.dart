@@ -81,20 +81,19 @@ class _ForgotPageState extends State<ForgotPage> {
                             email: emailcontroller.text.trim());
 
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
+                          const SnackBar(
                             content: Text("Reset mail sent successfully"),
                             backgroundColor: Colors.amber,
                           ),
                         );
 
                         Navigator.push(context,
-                            MaterialPageRoute(builder: ((context) => Login())));
+                            MaterialPageRoute(builder: ((context) => const Login())));
                       } on FirebaseAuthException catch (e) {
-                        print(e.code);
                         if (e.code == 'user-not-found') {
                           emailcontroller.text = '';
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
+                            const SnackBar(
                               content: Text("User Not found"),
                               backgroundColor: Colors.amber,
                             ),

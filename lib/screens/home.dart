@@ -43,7 +43,7 @@ class _HomeState extends State<Home> {
             return Container();
           }
         } else {
-          return Spinner();
+          return const Spinner();
         }
       },
     );
@@ -51,6 +51,7 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
+    // ignore: todo
     // TODO: implement initState
 
     super.initState();
@@ -58,7 +59,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
     List<List<String>> userdata = [
       ['Harsh1', 'Hey im using this'],
       ['Harsh2', 'Hey im using this'],
@@ -73,18 +73,18 @@ class _HomeState extends State<Home> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SearchPage(),
+                  builder: (context) => const SearchPage(),
                 ),
               );
             },
-            child: FaIcon(FontAwesomeIcons.add),
+            child: const FaIcon(FontAwesomeIcons.add),
           ),
         ),
         body: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
-              Container(
+              SizedBox(
                 width: MediaQuery.of(context).size.width,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -114,8 +114,8 @@ class _HomeState extends State<Home> {
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
+                  children: const [
+                    Text(
                       "Chats",
                       style: TextStyle(fontSize: 25.0),
                     ),

@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_app/screens/home.dart';
 import 'package:firebase_app/screens/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -249,22 +248,15 @@ class _RegisterState extends State<Register> {
           backgroundColor: Colors.amber,
         ));
       } else {
-        final newUser = await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(
-                email: emailcontroller.text.trim(),
-                password: passwordcontroller.text.trim());
         FirebaseFirestore.instance.collection('users').add({
           'name': usernamecontroller.text.trim(),
           'email': emailcontroller.text.trim(),
         });
-        if (newUser != null) {
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => const Login()));
-        }
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => const Login()));
       }
     } on FirebaseAuthException catch (ex) {
       if (ex.code == 'email-already-in-use') {
-        print(ex.code);
         setState(() {
           emailcontroller.text = '';
           passwordcontroller.text = '';

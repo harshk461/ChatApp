@@ -1,8 +1,5 @@
-import 'package:firebase_app/screens/error.dart';
 import 'package:firebase_app/screens/forgot_pass.dart';
 import 'package:firebase_app/screens/register.dart';
-import 'package:firebase_app/screens/searchpage.dart';
-import 'package:firebase_app/utils/spinner.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -99,7 +96,7 @@ class _LoginState extends State<Login> {
                               fontSize: 25.0, color: Colors.black),
                           decoration: InputDecoration(
                             labelText: "Email",
-                            labelStyle: TextStyle(
+                            labelStyle: const TextStyle(
                               color: Colors.black,
                             ),
                             border: OutlineInputBorder(
@@ -131,7 +128,7 @@ class _LoginState extends State<Login> {
                           ),
                           decoration: InputDecoration(
                             labelText: "Password",
-                            labelStyle: TextStyle(
+                            labelStyle: const TextStyle(
                               color: Colors.black,
                             ),
                             border: OutlineInputBorder(

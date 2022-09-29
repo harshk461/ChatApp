@@ -22,34 +22,34 @@ class _ChatRoomState extends State<ChatRoom> {
         backgroundColor: Colors.amber,
         title: Text(
           widget.name,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 23.0,
           ),
         ),
         actions: [
           IconButton(
             onPressed: () {},
-            icon: FaIcon(FontAwesomeIcons.video),
+            icon: const FaIcon(FontAwesomeIcons.video),
           ),
           IconButton(
             onPressed: () {},
-            icon: FaIcon(FontAwesomeIcons.phone),
+            icon: const FaIcon(FontAwesomeIcons.phone),
           ),
           IconButton(
             onPressed: () {},
-            icon: FaIcon(FontAwesomeIcons.ellipsisVertical),
+            icon: const FaIcon(FontAwesomeIcons.ellipsisVertical),
           ),
         ],
       ),
       body: ListView.builder(
         itemCount: 100,
         itemBuilder: (context, index) {
-          return Text("hello");
+          return const Text("hello");
         },
       ),
       bottomSheet: Container(
         width: double.infinity,
-        padding: EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(10.0),
         color: Colors.black,
         child: Row(
           children: [
@@ -57,11 +57,11 @@ class _ChatRoomState extends State<ChatRoom> {
               child: TextField(
                 minLines: 1,
                 maxLines: 5,
-                style: TextStyle(fontSize: 23.0),
+                style: const TextStyle(fontSize: 23.0),
                 decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10.0),
+                    contentPadding: const EdgeInsets.all(10.0),
                     hintText: "Message",
-                    hintStyle: TextStyle(
+                    hintStyle: const TextStyle(
                       fontSize: 23.0,
                       color: Colors.black,
                     ),
@@ -71,7 +71,7 @@ class _ChatRoomState extends State<ChatRoom> {
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.0),
-                      borderSide: BorderSide(
+                      borderSide: const BorderSide(
                         width: 0.0,
                       ),
                     ),
@@ -79,7 +79,7 @@ class _ChatRoomState extends State<ChatRoom> {
                     fillColor: Colors.grey),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10.0,
             ),
             SizedBox(
@@ -88,10 +88,8 @@ class _ChatRoomState extends State<ChatRoom> {
               child: FloatingActionButton(
                 splashColor: Colors.red,
                 onPressed: () {
-                  print(Name);
-                  print(About);
                 },
-                child: FaIcon(
+                child: const FaIcon(
                   FontAwesomeIcons.paperPlane,
                 ),
               ),
