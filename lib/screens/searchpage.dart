@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_app/screens/chatRoom.dart';
 import 'package:firebase_app/screens/login.dart';
+import 'package:firebase_app/utils/currentUser.dart';
 import 'package:firebase_app/utils/search_card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -18,14 +20,29 @@ class _SearchPageState extends State<SearchPage> {
   TextEditingController searchcontroller = TextEditingController();
 
   QuerySnapshot? searchSnapShot;
-  
+
+  setCurrentUser() async {
+    await FirebaseFirestore.instance
+        .collection("users")
+        .where('email', isEqualTo: FirebaseAuth.instance.currentUser!.email)
+        .get()
+        .then((value) => {
+              Constants.UserMail = value.docs[0]['email'] as String?,
+              Constants.UserName = value.docs[0]['name'] as String?,
+            });
+  }
+
+  PrintData() {
+    print(Constants.UserMail);
+    print(Constants.UserName);
+  }
+
   getUserByName() async {
     return await FirebaseFirestore.instance
         .collection('users')
         .where(
           'name',
           isEqualTo: searchcontroller.text.trim(),
-          
         )
         .get()
         .then((value) => {
@@ -41,13 +58,108 @@ class _SearchPageState extends State<SearchPage> {
             itemCount: searchSnapShot!.docs.length,
             shrinkWrap: true,
             itemBuilder: (context, index) {
-              return SearchCard(
-                name: searchSnapShot!.docs[index]["name"],
-                about: searchSnapShot!.docs[index]["email"],
-                ID: index.toString(),
-              );
+              if (FirebaseAuth.instance.currentUser!.email !=
+                  searchSnapShot!.docs[index]['email']) {
+                return SearchTile(
+                    username: searchSnapShot!.docs[index]['name'],
+                    email: searchSnapShot!.docs[index]['email']);
+              }
+              if (FirebaseAuth.instance.currentUser!.email ==
+                  searchSnapShot!.docs[index]['email']) {
+                Constants.UserMail = searchSnapShot!.docs[index]['email'];
+                Constants.UserName = searchSnapShot!.docs[index]['name'];
+                return Text("No result Found");
+              } else {
+                return Text("No result found");
+              }
             })
-        : const Text("Not found");
+        : Container();
+  }
+
+  Widget SearchTile({required String username, required String email}) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      margin: EdgeInsets.symmetric(vertical: 10.0),
+      padding: const EdgeInsets.all(10.0),
+      decoration: BoxDecoration(
+        color: Colors.blue[100],
+        borderRadius: BorderRadius.circular(15.0),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                username,
+                style: TextStyle(
+                  fontSize: 25.0,
+                  color: Colors.black45,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                email,
+                style: TextStyle(
+                  fontSize: 17.0,
+                  color: Colors.black,
+                ),
+              ),
+            ],
+          ),
+          ElevatedButton(
+            onPressed: () {
+              createChatRoomandConversation(username);
+            },
+            style: ElevatedButton.styleFrom(
+              elevation: 0.0,
+              backgroundColor: Colors.red,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+            ),
+            child: Text(
+              "Chat",
+              style: TextStyle(
+                fontSize: 23.0,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  createChatRoomandConversation(String username) async {
+    if (username != Constants.UserName) {
+      String ChatRoomID = getChatRoomID(username, Constants.UserName!);
+      List<String> userMap = [username, Constants.UserName!];
+      Map<String, dynamic> ChatRoomMap = {
+        'user': userMap,
+        'chatRoomID': ChatRoomID
+      };
+
+      await FirebaseFirestore.instance
+          .collection("chatRoom")
+          .doc(ChatRoomID)
+          .set(ChatRoomMap)
+          .catchError((e) {
+        print(e.toString());
+      });
+
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  ChatRoom(name: userMap[0], ChatID: ChatRoomID)));
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
   }
 
   @override
@@ -87,6 +199,8 @@ class _SearchPageState extends State<SearchPage> {
           actions: [
             IconButton(
               onPressed: () {
+                setCurrentUser();
+                PrintData();
                 getUserByName();
               },
               icon: const FaIcon(FontAwesomeIcons.magnifyingGlass),
@@ -97,7 +211,7 @@ class _SearchPageState extends State<SearchPage> {
         floatingActionButton: SizedBox(
           height: 60.0,
           width: 60.0,
-          child: FloatingActionButton(
+          child: IconButton(
             splashColor: Colors.amberAccent,
             onPressed: () {
               print(FirebaseAuth.instance.currentUser);
@@ -117,7 +231,7 @@ class _SearchPageState extends State<SearchPage> {
                 );
               }
             },
-            child: FaIcon(
+            icon: FaIcon(
               FontAwesomeIcons.home,
               color: Colors.blueGrey[400],
               size: 30.0,
@@ -131,8 +245,8 @@ class _SearchPageState extends State<SearchPage> {
 
 getChatRoomID(String a, String b) {
   if (a.substring(0, 1).codeUnitAt(0) > b.substring(0, 1).codeUnitAt(0)) {
-    return "$b\_$a";
+    return "$b\+$a";
   } else {
-    return "$a\_$b";
+    return "$a\+$b";
   }
 }

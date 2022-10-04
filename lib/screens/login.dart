@@ -295,6 +295,11 @@ class _LoginState extends State<Login> {
           content: Text("Wrong Password"),
           backgroundColor: Colors.amberAccent,
         ));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(ex.code.toString()),
+          backgroundColor: Colors.amberAccent,
+        ));
       }
     }
   }

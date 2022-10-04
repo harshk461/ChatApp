@@ -248,6 +248,9 @@ class _RegisterState extends State<Register> {
           backgroundColor: Colors.amber,
         ));
       } else {
+        FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: emailcontroller.text.trim(),
+            password: passwordcontroller.text.trim());
         FirebaseFirestore.instance.collection('users').add({
           'name': usernamecontroller.text.trim(),
           'email': emailcontroller.text.trim(),
@@ -263,6 +266,11 @@ class _RegisterState extends State<Register> {
         });
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text("User Already Exists"),
+          backgroundColor: Colors.amber,
+        ));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(ex.code.toString()),
           backgroundColor: Colors.amber,
         ));
       }

@@ -1,25 +1,111 @@
+import 'package:cloud_firestore/cloud_firestore.dart'
+    show FirebaseFirestore, QuerySnapshot;
+import 'package:firebase_app/utils/currentUser.dart';
+import 'package:firebase_app/utils/spinner.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ChatRoom extends StatefulWidget {
   final String name;
-  final String about;
-  const ChatRoom({super.key, required this.name, required this.about});
+  final String ChatID;
+  const ChatRoom({super.key, required this.name, required this.ChatID});
 
   @override
   State<ChatRoom> createState() => _ChatRoomState();
 }
 
 class _ChatRoomState extends State<ChatRoom> {
+  TextEditingController messageController = TextEditingController();
+  Stream<QuerySnapshot>? ChatMessageStream;
+
+  String? Mail = Constants.UserMail;
+  String? Name = Constants.UserName;
+
+  getConversation(String ChatID) async {
+    return await FirebaseFirestore.instance
+        .collection("chatRoom")
+        .doc(ChatID)
+        .collection("chats")
+        .orderBy('time', descending: false)
+        .snapshots();
+  }
+
+  Widget ChatMessageList() {
+    return StreamBuilder<QuerySnapshot>(
+      stream: ChatMessageStream,
+      builder: ((context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.active) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              
+              itemCount: snapshot.data!.docs.length,
+              itemBuilder: (context, index) {
+                Map<String, dynamic> UserMap =
+                    snapshot.data!.docs[index].data() as Map<String, dynamic>;
+
+                return MessageTile(
+                    Message: UserMap['message'],
+                    isSentByMe: UserMap['sendBy'] == Constants.UserName);
+              },
+            );
+          } else {
+            return Container();
+          }
+        } else {
+          return const Spinner();
+        }
+      }),
+    );
+  }
+
+  AddMessage(String chatRoomID, messagegMap) async {
+    await FirebaseFirestore.instance
+        .collection("chatRoom")
+        .doc(chatRoomID)
+        .collection("chats")
+        .add(messagegMap)
+        .catchError((er) {
+      print(er.toString());
+    });
+  }
+
+  SendMessage() {
+    if (messageController.text.isNotEmpty) {
+      print(messageController.text.trim());
+      Map<String, dynamic> messageMap = {
+        'message': messageController.text.trim(),
+        'sendBy': Constants.UserName,
+        'time': DateTime.now().microsecondsSinceEpoch
+      };
+      AddMessage(widget.ChatID, messageMap);
+    }
+  }
+
   @override
+  void initState() {
+    // TODO: implement initState
+    getConversation(widget.ChatID).then((value) {
+      setState(() {
+        ChatMessageStream = value;
+      });
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    messageController.dispose();
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
-    String Name = widget.name;
-    String About = widget.about;
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
         elevation: 0.0,
         backgroundColor: Colors.amber,
+        automaticallyImplyLeading: true,
         title: Text(
           widget.name,
           style: const TextStyle(
@@ -41,12 +127,7 @@ class _ChatRoomState extends State<ChatRoom> {
           ),
         ],
       ),
-      body: ListView.builder(
-        itemCount: 100,
-        itemBuilder: (context, index) {
-          return const Text("hello");
-        },
-      ),
+      body: ChatMessageList(),
       bottomSheet: Container(
         width: double.infinity,
         padding: const EdgeInsets.all(10.0),
@@ -57,6 +138,7 @@ class _ChatRoomState extends State<ChatRoom> {
               child: TextField(
                 minLines: 1,
                 maxLines: 5,
+                controller: messageController,
                 style: const TextStyle(fontSize: 23.0),
                 decoration: InputDecoration(
                     contentPadding: const EdgeInsets.all(10.0),
@@ -82,19 +164,58 @@ class _ChatRoomState extends State<ChatRoom> {
             const SizedBox(
               width: 10.0,
             ),
-            SizedBox(
-              height: 45.0,
-              width: 45.0,
-              child: FloatingActionButton(
-                splashColor: Colors.red,
-                onPressed: () {
-                },
-                child: const FaIcon(
-                  FontAwesomeIcons.paperPlane,
-                ),
+            IconButton(
+              splashColor: Colors.red,
+              onPressed: () {
+                print(widget.ChatID);
+                SendMessage();
+                messageController.text = '';
+              },
+              icon: const FaIcon(
+                FontAwesomeIcons.paperPlane,
               ),
             )
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class MessageTile extends StatelessWidget {
+  final String Message;
+  final bool isSentByMe;
+  const MessageTile(
+      {super.key, required this.Message, required this.isSentByMe});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(
+          left: isSentByMe ? 15 : 24, right: isSentByMe ? 24 : 15),
+      margin: EdgeInsets.symmetric(vertical: 8.0),
+      width: MediaQuery.of(context).size.width,
+      alignment: isSentByMe ? Alignment.centerRight : Alignment.centerLeft,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+        decoration: BoxDecoration(
+          color: isSentByMe ? Colors.deepPurple[400] : Colors.blueGrey,
+          borderRadius: isSentByMe
+              ? BorderRadius.only(
+                  topRight: Radius.circular(23),
+                  topLeft: Radius.circular(23),
+                  bottomLeft: Radius.circular(23))
+              : BorderRadius.only(
+                  topRight: Radius.circular(23),
+                  topLeft: Radius.circular(23),
+                  bottomRight: Radius.circular(23)),
+        ),
+        child: Text(
+          Message,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18.0,
+          ),
         ),
       ),
     );
