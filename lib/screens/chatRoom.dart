@@ -21,7 +21,7 @@ class _ChatRoomState extends State<ChatRoom> {
   String? Name = Constants.UserName;
 
   getConversation(String ChatID) async {
-    return await FirebaseFirestore.instance
+    return FirebaseFirestore.instance
         .collection("chatRoom")
         .doc(ChatID)
         .collection("chats")
@@ -63,13 +63,11 @@ class _ChatRoomState extends State<ChatRoom> {
         .collection("chats")
         .add(messagegMap)
         .catchError((er) {
-      print(er.toString());
     });
   }
 
   SendMessage() {
     if (messageController.text.isNotEmpty) {
-      print(messageController.text.trim());
       Map<String, dynamic> messageMap = {
         'message': messageController.text.trim(),
         'sendBy': Constants.UserName,
@@ -81,7 +79,7 @@ class _ChatRoomState extends State<ChatRoom> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     getConversation(widget.ChatID).then((value) {
       setState(() {
         ChatMessageStream = value;
@@ -92,11 +90,12 @@ class _ChatRoomState extends State<ChatRoom> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
+    
     messageController.dispose();
     super.dispose();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
@@ -165,7 +164,6 @@ class _ChatRoomState extends State<ChatRoom> {
             IconButton(
               splashColor: Colors.red,
               onPressed: () {
-                print(widget.ChatID);
                 SendMessage();
                 messageController.text = '';
               },
@@ -191,26 +189,26 @@ class MessageTile extends StatelessWidget {
     return Container(
       padding: EdgeInsets.only(
           left: isSentByMe ? 15 : 24, right: isSentByMe ? 24 : 15),
-      margin: EdgeInsets.symmetric(vertical: 8.0),
+      margin: const EdgeInsets.symmetric(vertical: 8.0),
       width: MediaQuery.of(context).size.width,
       alignment: isSentByMe ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
         decoration: BoxDecoration(
           color: isSentByMe ? Colors.deepPurple[400] : Colors.blueGrey,
           borderRadius: isSentByMe
-              ? BorderRadius.only(
+              ? const BorderRadius.only(
                   topRight: Radius.circular(23),
                   topLeft: Radius.circular(23),
                   bottomLeft: Radius.circular(23))
-              : BorderRadius.only(
+              : const BorderRadius.only(
                   topRight: Radius.circular(23),
                   topLeft: Radius.circular(23),
                   bottomRight: Radius.circular(23)),
         ),
         child: Text(
           Message,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 18.0,
           ),

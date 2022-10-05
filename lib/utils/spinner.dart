@@ -11,7 +11,7 @@ class Spinner extends StatefulWidget {
 class _SpinnerState extends State<Spinner> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: Colors.black,
       body: Center(
         child: SpinKitDualRing(

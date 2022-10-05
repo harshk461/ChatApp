@@ -1,5 +1,4 @@
 import 'package:firebase_app/screens/chatRoom.dart';
-import 'package:firebase_app/utils/currentUser.dart';
 import 'package:flutter/material.dart';
 
 class SearchCard extends StatefulWidget {
@@ -21,11 +20,10 @@ class _SearchCardState extends State<SearchCard> {
   @override
   Widget build(BuildContext context) {
     String Name = widget.name;
-    String email = widget.email;
 
     return Container(
       width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.symmetric(vertical: 10.0),
+      margin: const EdgeInsets.symmetric(vertical: 10.0),
       padding: const EdgeInsets.all(10.0),
       decoration: BoxDecoration(
         color: Colors.blue[100],
@@ -39,7 +37,7 @@ class _SearchCardState extends State<SearchCard> {
             children: [
               Text(
                 widget.name,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 25.0,
                   color: Colors.black45,
                   fontWeight: FontWeight.bold,
@@ -47,7 +45,7 @@ class _SearchCardState extends State<SearchCard> {
               ),
               Text(
                 widget.email,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 17.0,
                   color: Colors.black,
                 ),
@@ -56,7 +54,6 @@ class _SearchCardState extends State<SearchCard> {
           ),
           ElevatedButton(
             onPressed: () {
-              print(widget.ChatID);
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
@@ -72,7 +69,7 @@ class _SearchCardState extends State<SearchCard> {
                 borderRadius: BorderRadius.circular(20.0),
               ),
             ),
-            child: Text(
+            child: const Text(
               "Chat",
               style: TextStyle(
                 fontSize: 23.0,

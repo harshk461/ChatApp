@@ -53,7 +53,7 @@ class _HomeState extends State<Home> {
             return Container();
           }
         } else {
-          return Spinner();
+          return const Spinner();
         }
       },
     );
@@ -76,7 +76,6 @@ class _HomeState extends State<Home> {
         .then((value) {
       username = value.docs[0]['name'];
     });
-    print(username);
     return getChatRoom(username).then((value) {
       setState(() {
         chatsnapshots = value;
@@ -85,7 +84,7 @@ class _HomeState extends State<Home> {
   }
 
   getChatRoom(String? username) async {
-    return await FirebaseFirestore.instance
+    return FirebaseFirestore.instance
         .collection("chatRoom")
         .where("user", arrayContains: username)
         .snapshots();
@@ -152,24 +151,21 @@ class _HomeState extends State<Home> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10.0,
               ),
               Expanded(child: ChatRoomList()),
               IconButton(
                   onPressed: () {
-                    String username = '';
                     FirebaseFirestore.instance
                         .collection("users")
                         .where("email",
                             isEqualTo: FirebaseAuth.instance.currentUser!.email)
                         .get()
                         .then((value) {
-                      username = value as String;
                     });
-                    print(username);
                   },
-                  icon: FaIcon(FontAwesomeIcons.a)),
+                  icon: const FaIcon(FontAwesomeIcons.a)),
             ],
           ),
         ),
@@ -188,7 +184,6 @@ class ChatRoomTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        print(ChatRoomID);
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -214,7 +209,7 @@ class ChatRoomTile extends StatelessWidget {
               ),
               child: Center(
                 child: Text(
-                  "${username.substring(0, 1).toUpperCase()}",
+                  username.substring(0, 1).toUpperCase(),
                   style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,

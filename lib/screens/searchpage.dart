@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_app/screens/chatRoom.dart';
 import 'package:firebase_app/screens/login.dart';
 import 'package:firebase_app/utils/currentUser.dart';
-import 'package:firebase_app/utils/search_card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -22,8 +21,6 @@ class _SearchPageState extends State<SearchPage> {
   QuerySnapshot? searchSnapShot;
 
   PrintData() {
-    print(Constants.UserMail);
-    print(Constants.UserName);
   }
 
   getUserByName() async {
@@ -57,9 +54,9 @@ class _SearchPageState extends State<SearchPage> {
                   searchSnapShot!.docs[index]['email']) {
                 Constants.UserMail = searchSnapShot!.docs[index]['email'];
                 Constants.UserName = searchSnapShot!.docs[index]['name'];
-                return Text("No result Found");
+                return const Text("No result Found");
               } else {
-                return Text("No result found");
+                return const Text("No result found");
               }
             })
         : Container();
@@ -68,7 +65,7 @@ class _SearchPageState extends State<SearchPage> {
   Widget SearchTile({required String username, required String email}) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.symmetric(vertical: 10.0),
+      margin: const EdgeInsets.symmetric(vertical: 10.0),
       padding: const EdgeInsets.all(10.0),
       decoration: BoxDecoration(
         color: Colors.blue[100],
@@ -82,7 +79,7 @@ class _SearchPageState extends State<SearchPage> {
             children: [
               Text(
                 username,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 25.0,
                   color: Colors.black45,
                   fontWeight: FontWeight.bold,
@@ -90,7 +87,7 @@ class _SearchPageState extends State<SearchPage> {
               ),
               Text(
                 email,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 17.0,
                   color: Colors.black,
                 ),
@@ -108,7 +105,7 @@ class _SearchPageState extends State<SearchPage> {
                 borderRadius: BorderRadius.circular(20.0),
               ),
             ),
-            child: Text(
+            child: const Text(
               "Chat",
               style: TextStyle(
                 fontSize: 23.0,
@@ -134,7 +131,6 @@ class _SearchPageState extends State<SearchPage> {
           .doc(ChatRoomID)
           .set(ChatRoomMap)
           .catchError((e) {
-        print(e.toString());
       });
 
       Navigator.push(
@@ -147,14 +143,13 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
   }
 
   @override
   void dispose() {
-    // ignore: todo
-    // TODO: implement dispose
+    
     searchcontroller.dispose();
     super.dispose();
   }
@@ -202,7 +197,6 @@ class _SearchPageState extends State<SearchPage> {
           child: IconButton(
             splashColor: Colors.amberAccent,
             onPressed: () {
-              print(FirebaseAuth.instance.currentUser);
               if (FirebaseAuth.instance.currentUser != null) {
                 Navigator.push(
                   context,
@@ -220,7 +214,7 @@ class _SearchPageState extends State<SearchPage> {
               }
             },
             icon: FaIcon(
-              FontAwesomeIcons.home,
+              FontAwesomeIcons.house,
               color: Colors.blueGrey[400],
               size: 30.0,
             ),
@@ -233,8 +227,8 @@ class _SearchPageState extends State<SearchPage> {
 
 getChatRoomID(String a, String b) {
   if (a.substring(0, 1).codeUnitAt(0) > b.substring(0, 1).codeUnitAt(0)) {
-    return "$b\+$a";
+    return "$b+$a";
   } else {
-    return "$a\+$b";
+    return "$a+$b";
   }
 }
