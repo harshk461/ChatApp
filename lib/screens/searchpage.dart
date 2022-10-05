@@ -21,17 +21,6 @@ class _SearchPageState extends State<SearchPage> {
 
   QuerySnapshot? searchSnapShot;
 
-  setCurrentUser() async {
-    await FirebaseFirestore.instance
-        .collection("users")
-        .where('email', isEqualTo: FirebaseAuth.instance.currentUser!.email)
-        .get()
-        .then((value) => {
-              Constants.UserMail = value.docs[0]['email'] as String?,
-              Constants.UserName = value.docs[0]['name'] as String?,
-            });
-  }
-
   PrintData() {
     print(Constants.UserMail);
     print(Constants.UserName);
@@ -199,7 +188,6 @@ class _SearchPageState extends State<SearchPage> {
           actions: [
             IconButton(
               onPressed: () {
-                setCurrentUser();
                 PrintData();
                 getUserByName();
               },

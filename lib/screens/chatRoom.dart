@@ -1,5 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart'
-    show FirebaseFirestore, QuerySnapshot;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_app/utils/currentUser.dart';
 import 'package:firebase_app/utils/spinner.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +36,6 @@ class _ChatRoomState extends State<ChatRoom> {
         if (snapshot.connectionState == ConnectionState.active) {
           if (snapshot.hasData) {
             return ListView.builder(
-              
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (context, index) {
                 Map<String, dynamic> UserMap =

@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_app/screens/forgot_pass.dart';
 import 'package:firebase_app/screens/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../utils/currentUser.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -14,6 +17,17 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final emailcontroller = TextEditingController();
   final passwordcontroller = TextEditingController();
+
+  setCurrentUser() async {
+    await FirebaseFirestore.instance
+        .collection("users")
+        .where('email', isEqualTo: FirebaseAuth.instance.currentUser!.email)
+        .get()
+        .then((value) => {
+              Constants.UserMail = value.docs[0]['email'] as String?,
+              Constants.UserName = value.docs[0]['name'] as String?,
+            });
+  }
 
   String validatePassword(String value) {
     if (!(value.toString().length > 5) && value.isNotEmpty) {
@@ -175,7 +189,9 @@ class _LoginState extends State<Login> {
                           width: 200.0,
                           height: 50.0,
                           child: ElevatedButton.icon(
-                            onPressed: sign_in,
+                            onPressed: () {
+                              sign_in();
+                            },
                             icon: const Icon(Icons.lock_open),
                             style: ElevatedButton.styleFrom(
                               backgroundColor:
