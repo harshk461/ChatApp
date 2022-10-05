@@ -155,17 +155,6 @@ class _HomeState extends State<Home> {
                 height: 10.0,
               ),
               Expanded(child: ChatRoomList()),
-              IconButton(
-                  onPressed: () {
-                    FirebaseFirestore.instance
-                        .collection("users")
-                        .where("email",
-                            isEqualTo: FirebaseAuth.instance.currentUser!.email)
-                        .get()
-                        .then((value) {
-                    });
-                  },
-                  icon: const FaIcon(FontAwesomeIcons.a)),
             ],
           ),
         ),
