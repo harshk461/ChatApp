@@ -36,6 +36,7 @@ class _ChatRoomState extends State<ChatRoom> {
         if (snapshot.connectionState == ConnectionState.active) {
           if (snapshot.hasData) {
             return ListView.builder(
+              
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (context, index) {
                 Map<String, dynamic> UserMap =
@@ -62,8 +63,7 @@ class _ChatRoomState extends State<ChatRoom> {
         .doc(chatRoomID)
         .collection("chats")
         .add(messagegMap)
-        .catchError((er) {
-    });
+        .catchError((er) {});
   }
 
   SendMessage() {
@@ -79,7 +79,6 @@ class _ChatRoomState extends State<ChatRoom> {
 
   @override
   void initState() {
-    
     getConversation(widget.ChatID).then((value) {
       setState(() {
         ChatMessageStream = value;
@@ -90,7 +89,6 @@ class _ChatRoomState extends State<ChatRoom> {
 
   @override
   void dispose() {
-    
     messageController.dispose();
     super.dispose();
   }
@@ -124,56 +122,58 @@ class _ChatRoomState extends State<ChatRoom> {
           ),
         ],
       ),
-      body: ChatMessageList(),
-      bottomSheet: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(10.0),
-        color: Colors.black,
-        child: Row(
-          children: [
-            Expanded(
-              child: TextField(
-                minLines: 1,
-                maxLines: 5,
-                controller: messageController,
-                style: const TextStyle(fontSize: 23.0),
-                decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.all(10.0),
-                    hintText: "Message",
-                    hintStyle: const TextStyle(
-                      fontSize: 23.0,
-                      color: Colors.black,
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                      borderSide: const BorderSide(
-                        width: 0.0,
+      body: Column(children: [
+        Expanded(child: ChatMessageList()),
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(10.0),
+          color: Colors.black,
+          child: Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  minLines: 1,
+                  maxLines: 5,
+                  controller: messageController,
+                  style: const TextStyle(fontSize: 23.0),
+                  decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.all(10.0),
+                      hintText: "Message",
+                      hintStyle: const TextStyle(
+                        fontSize: 23.0,
+                        color: Colors.black,
                       ),
-                    ),
-                    filled: true,
-                    fillColor: Colors.grey),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide: const BorderSide(
+                          width: 0.0,
+                        ),
+                      ),
+                      filled: true,
+                      fillColor: Colors.grey),
+                ),
               ),
-            ),
-            const SizedBox(
-              width: 10.0,
-            ),
-            IconButton(
-              splashColor: Colors.red,
-              onPressed: () {
-                SendMessage();
-                messageController.text = '';
-              },
-              icon: const FaIcon(
-                FontAwesomeIcons.paperPlane,
+              const SizedBox(
+                width: 10.0,
               ),
-            )
-          ],
+              IconButton(
+                splashColor: Colors.red,
+                onPressed: () {
+                  SendMessage();
+                  messageController.text = '';
+                },
+                icon: const FaIcon(
+                  FontAwesomeIcons.paperPlane,
+                ),
+              )
+            ],
+          ),
         ),
-      ),
+      ]),
     );
   }
 }
