@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_app/screens/forgot_pass.dart';
+import 'package:firebase_app/screens/home.dart';
 import 'package:firebase_app/screens/register.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -299,6 +300,7 @@ class _LoginState extends State<Login> {
         email: emailcontroller.text.trim(),
         password: passwordcontroller.text.trim(),
       );
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
     } on FirebaseAuthException catch (ex) {
       if (ex.code.toString() == 'user-not-found') {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

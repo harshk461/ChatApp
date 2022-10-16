@@ -36,7 +36,7 @@ class _ChatRoomState extends State<ChatRoom> {
         if (snapshot.connectionState == ConnectionState.active) {
           if (snapshot.hasData) {
             return ListView.builder(
-              
+              shrinkWrap: true,
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (context, index) {
                 Map<String, dynamic> UserMap =
@@ -193,6 +193,8 @@ class MessageTile extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       alignment: isSentByMe ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
+        constraints:
+            BoxConstraints(maxWidth: MediaQuery.of(context).size.width / 1.4),
         padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
         decoration: BoxDecoration(
           color: isSentByMe ? Colors.deepPurple[400] : Colors.blueGrey,
