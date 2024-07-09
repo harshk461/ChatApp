@@ -1,3 +1,4 @@
+import 'package:chat_app/screens/login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:chat_app/screens/chatRoom.dart';
 import 'package:chat_app/screens/searchpage.dart';
@@ -40,13 +41,20 @@ class _HomeState extends State<Home> {
                 Map<String, dynamic> roomMap =
                     snapshot.data!.docs[index].data() as Map<String, dynamic>;
 
+                // Split chatRoomID by '+'
+                List<String> users =
+                    roomMap["chatRoomID"].toString().split('+');
+
+                // Remove the current user's username
+                users.remove(Constants.UserName!);
+
+                // The remaining part should be the other user's username
+                String otherUsername = users.join(' ');
+
                 return ChatRoomTile(
-                    username: roomMap["chatRoomID"]
-                        .toString()
-                        .replaceAll("+", " ")
-                        .replaceAll(Constants.UserName!, "")
-                        .trim(),
-                    ChatRoomID: roomMap["chatRoomID"]);
+                  username: otherUsername,
+                  ChatRoomID: roomMap["chatRoomID"],
+                );
               },
             );
           } else {
@@ -90,6 +98,16 @@ class _HomeState extends State<Home> {
         .snapshots();
   }
 
+  signout() async {
+    await FirebaseAuth.instance.signOut();
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const Login(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -97,6 +115,7 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.black,
         floatingActionButton: SizedBox(
           child: FloatingActionButton(
+            backgroundColor: Colors.blue.shade900,
             onPressed: () {
               Navigator.push(
                 context,
@@ -120,15 +139,17 @@ class _HomeState extends State<Home> {
                     const Text(
                       "Home",
                       style: TextStyle(
-                        fontSize: 25.0,
+                        fontSize: 20.0,
                       ),
                     ),
                     IconButton(
                       onPressed: () {
-                        FirebaseAuth.instance.signOut();
+                        signout();
                       },
-                      icon:
-                          const FaIcon(FontAwesomeIcons.arrowRightFromBracket),
+                      icon: const FaIcon(
+                        FontAwesomeIcons.arrowRightFromBracket,
+                        size: 25.0,
+                      ),
                     ),
                   ],
                 ),
@@ -138,15 +159,15 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.symmetric(
                     horizontal: 10.0, vertical: 10.0),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                  color: Colors.amber,
+                  borderRadius: BorderRadius.circular(10.0),
+                  color: Colors.blue.shade900,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: const [
                     Text(
                       "Chats",
-                      style: TextStyle(fontSize: 25.0),
+                      style: TextStyle(fontSize: 18.0),
                     ),
                   ],
                 ),
@@ -184,14 +205,14 @@ class ChatRoomTile extends StatelessWidget {
         padding: const EdgeInsets.all(10.0),
         margin: const EdgeInsets.symmetric(vertical: 5.0),
         decoration: BoxDecoration(
-          color: Colors.amber,
-          borderRadius: BorderRadius.circular(20.0),
+          border: Border.all(width: 2.0, color: Colors.blue.shade900),
+          borderRadius: BorderRadius.circular(10.0),
         ),
         child: Row(
           children: [
             Container(
-              width: 40.0,
-              height: 40.0,
+              width: 35.0,
+              height: 35.0,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Colors.blueGrey[600],
@@ -202,7 +223,7 @@ class ChatRoomTile extends StatelessWidget {
                   style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
-                    fontSize: 20.0,
+                    fontSize: 18.0,
                   ),
                 ),
               ),
@@ -215,7 +236,7 @@ class ChatRoomTile extends StatelessWidget {
                 username,
                 style: const TextStyle(
                   color: Colors.white,
-                  fontSize: 20.0,
+                  fontSize: 18.0,
                 ),
               ),
             )

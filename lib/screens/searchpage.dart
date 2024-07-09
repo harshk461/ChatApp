@@ -64,10 +64,10 @@ class _SearchPageState extends State<SearchPage> {
   Widget SearchTile({required String username, required String email}) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      margin: const EdgeInsets.symmetric(vertical: 10.0),
+      margin: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
       padding: const EdgeInsets.all(10.0),
       decoration: BoxDecoration(
-        color: Colors.blue[100],
+        color: Colors.blue[600],
         borderRadius: BorderRadius.circular(15.0),
       ),
       child: Row(
@@ -79,15 +79,15 @@ class _SearchPageState extends State<SearchPage> {
               Text(
                 username,
                 style: const TextStyle(
-                  fontSize: 25.0,
-                  color: Colors.black45,
+                  fontSize: 20.0,
+                  color: Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Text(
                 email,
                 style: const TextStyle(
-                  fontSize: 17.0,
+                  fontSize: 15.0,
                   color: Colors.black,
                 ),
               ),
@@ -99,15 +99,15 @@ class _SearchPageState extends State<SearchPage> {
             },
             style: ElevatedButton.styleFrom(
               elevation: 0.0,
-              backgroundColor: Colors.red,
+              backgroundColor: Colors.blue.shade900,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20.0),
+                borderRadius: BorderRadius.circular(10.0),
               ),
             ),
             child: const Text(
               "Chat",
               style: TextStyle(
-                fontSize: 23.0,
+                fontSize: 17.0,
               ),
             ),
           ),
@@ -158,7 +158,7 @@ class _SearchPageState extends State<SearchPage> {
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Colors.blueGrey[300],
+          backgroundColor: Colors.blue[900],
           automaticallyImplyLeading: false,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
@@ -173,7 +173,7 @@ class _SearchPageState extends State<SearchPage> {
               labelStyle: TextStyle(color: Colors.black),
             ),
             style: const TextStyle(
-              fontSize: 23.0,
+              fontSize: 20.0,
             ),
           ),
           actions: [
@@ -182,16 +182,23 @@ class _SearchPageState extends State<SearchPage> {
                 PrintData();
                 getUserByName();
               },
-              icon: const FaIcon(FontAwesomeIcons.magnifyingGlass),
+              icon: const FaIcon(
+                FontAwesomeIcons.magnifyingGlass,
+                size: 20,
+              ),
             ),
           ],
         ),
         body: SearchList(),
-        floatingActionButton: SizedBox(
+        floatingActionButton: Container(
           height: 60.0,
           width: 60.0,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(100),
+            border: Border.all(color: Colors.blue.shade900),
+          ),
           child: IconButton(
-            splashColor: Colors.amberAccent,
+            splashColor: Colors.blue.shade900,
             onPressed: () {
               if (FirebaseAuth.instance.currentUser != null) {
                 Navigator.push(
@@ -211,8 +218,8 @@ class _SearchPageState extends State<SearchPage> {
             },
             icon: FaIcon(
               FontAwesomeIcons.house,
-              color: Colors.blueGrey[400],
-              size: 30.0,
+              color: Colors.blue[500],
+              size: 25.0,
             ),
           ),
         ),

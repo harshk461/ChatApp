@@ -60,6 +60,7 @@ class _LoginState extends State<Login> {
             child: Column(
               children: [
                 Container(
+                  decoration: BoxDecoration(color: Colors.black),
                   width: MediaQuery.of(context).size.width,
                   padding: const EdgeInsets.all(20.0),
                   child: Column(
@@ -93,8 +94,8 @@ class _LoginState extends State<Login> {
                   child: Container(
                     padding: const EdgeInsets.all(20.0),
                     width: MediaQuery.of(context).size.width,
-                    decoration: const BoxDecoration(
-                      color: Colors.cyan,
+                    decoration: BoxDecoration(
+                      color: Colors.blue.shade800,
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(40.0),
                           topRight: Radius.circular(40.0)),
@@ -109,14 +110,16 @@ class _LoginState extends State<Login> {
                           cursorColor: Colors.white,
                           textInputAction: TextInputAction.next,
                           style: const TextStyle(
-                              fontSize: 25.0, color: Colors.black),
+                              fontSize: 18.0, color: Colors.black),
                           decoration: InputDecoration(
                             labelText: "Email",
                             labelStyle: const TextStyle(
                               color: Colors.black,
                             ),
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 10.0),
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0),
+                              borderRadius: BorderRadius.circular(8.0),
                               borderSide: const BorderSide(
                                 color: Colors.black,
                                 width: 3.0,
@@ -147,6 +150,8 @@ class _LoginState extends State<Login> {
                             labelStyle: const TextStyle(
                               color: Colors.black,
                             ),
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 10.0),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
                               borderSide: const BorderSide(color: Colors.black),
@@ -176,8 +181,7 @@ class _LoginState extends State<Login> {
                             child: Text(
                               "Forgot password?",
                               style: TextStyle(
-                                fontSize: 20.0,
-                                decoration: TextDecoration.underline,
+                                fontSize: 16.0,
                                 color: Colors.black87,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -188,16 +192,18 @@ class _LoginState extends State<Login> {
                           height: 20.0,
                         ),
                         SizedBox(
-                          width: 200.0,
-                          height: 50.0,
+                          width: 150.0,
+                          height: 40.0,
                           child: ElevatedButton.icon(
                             onPressed: () {
                               sign_in();
                             },
-                            icon: const Icon(Icons.lock_open),
+                            icon: const Icon(
+                              Icons.lock_open,
+                              color: Colors.black,
+                            ),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  const Color.fromARGB(255, 0, 135, 117),
+                              backgroundColor: Colors.blue.shade600,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -205,8 +211,7 @@ class _LoginState extends State<Login> {
                             label: const Text(
                               "Sign In",
                               style: TextStyle(
-                                fontSize: 24.0,
-                              ),
+                                  fontSize: 20.0, color: Colors.black),
                             ),
                           ),
                         ),
@@ -216,7 +221,7 @@ class _LoginState extends State<Login> {
                         const Text(
                           "OR",
                           style: TextStyle(
-                            fontSize: 25.0,
+                            fontSize: 20.0,
                           ),
                         ),
                         const SizedBox(
@@ -230,7 +235,7 @@ class _LoginState extends State<Login> {
                               onPressed: () {},
                               icon: const FaIcon(FontAwesomeIcons.google),
                               color: Colors.red,
-                              iconSize: 40.0,
+                              iconSize: 30.0,
                             ),
                             const SizedBox(
                               width: 10.0,
@@ -239,7 +244,7 @@ class _LoginState extends State<Login> {
                               onPressed: () {},
                               icon: const FaIcon(FontAwesomeIcons.facebook),
                               color: Colors.blue,
-                              iconSize: 40.0,
+                              iconSize: 30.0,
                             ),
                             const SizedBox(
                               width: 10.0,
@@ -248,7 +253,7 @@ class _LoginState extends State<Login> {
                               onPressed: () {},
                               icon: const FaIcon(FontAwesomeIcons.twitter),
                               color: Colors.blue,
-                              iconSize: 40.0,
+                              iconSize: 30.0,
                             ),
                             const SizedBox(
                               width: 10.0,
@@ -263,18 +268,18 @@ class _LoginState extends State<Login> {
                           children: [
                             const Text(
                               "Create new account,",
-                              style: TextStyle(fontSize: 20.0),
+                              style: TextStyle(fontSize: 16.0),
                             ),
                             InkWell(
                               child: const Text(
                                 " Register",
                                 style: TextStyle(
-                                  fontSize: 20.0,
+                                  fontSize: 16.0,
                                   color: Colors.black,
                                 ),
                               ),
                               onTap: () {
-                                Navigator.push(
+                                Navigator.pushReplacement(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) =>

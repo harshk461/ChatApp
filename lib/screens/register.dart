@@ -36,6 +36,7 @@ class _RegisterState extends State<Register> {
             child: Column(
               children: [
                 Container(
+                  decoration: BoxDecoration(color: Colors.black),
                   width: MediaQuery.of(context).size.width,
                   padding: const EdgeInsets.all(20.0),
                   child: Column(
@@ -68,8 +69,8 @@ class _RegisterState extends State<Register> {
                 Expanded(
                   child: Container(
                     padding: const EdgeInsets.all(20.0),
-                    decoration: const BoxDecoration(
-                      color: Colors.cyan,
+                    decoration: BoxDecoration(
+                      color: Colors.blue.shade800,
                       borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(40.0),
                           topRight: Radius.circular(40.0)),
@@ -84,14 +85,27 @@ class _RegisterState extends State<Register> {
                           cursorColor: Colors.white,
                           textInputAction: TextInputAction.next,
                           style: const TextStyle(
-                            fontSize: 25.0,
-                            color: Colors.white,
-                          ),
+                              fontSize: 18.0, color: Colors.black),
                           decoration: InputDecoration(
                             labelText: "Email",
+                            labelStyle: const TextStyle(
+                              color: Colors.black,
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 10.0),
                             border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                              borderSide: const BorderSide(
+                                color: Colors.black,
+                                width: 3.0,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
-                              borderSide: const BorderSide(),
+                              borderSide: const BorderSide(
+                                color: Colors.lightGreenAccent,
+                                width: 3.0,
+                              ),
                             ),
                           ),
                         ),
@@ -103,14 +117,26 @@ class _RegisterState extends State<Register> {
                           cursorColor: Colors.white,
                           textInputAction: TextInputAction.next,
                           style: const TextStyle(
-                            fontSize: 25.0,
-                          ),
+                              fontSize: 18.0, color: Colors.black),
                           decoration: InputDecoration(
                             labelText: "Username",
+                            labelStyle: const TextStyle(
+                              color: Colors.black,
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 10.0),
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0),
+                              borderRadius: BorderRadius.circular(8.0),
                               borderSide: const BorderSide(
                                 color: Colors.black,
+                                width: 3.0,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: const BorderSide(
+                                color: Colors.lightGreenAccent,
+                                width: 3.0,
                               ),
                             ),
                           ),
@@ -124,29 +150,31 @@ class _RegisterState extends State<Register> {
                           textInputAction: TextInputAction.next,
                           style: const TextStyle(
                             fontSize: 25.0,
+                            color: Colors.black,
                           ),
                           decoration: InputDecoration(
                             labelText: "Password",
-                            errorText:
-                                validatePassword(passwordcontroller.text),
-                            errorStyle: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 15.0,
+                            labelStyle: const TextStyle(
+                              color: Colors.black,
                             ),
-                            errorBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Colors.red,
-                              ),
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 10.0),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
+                              borderSide: const BorderSide(color: Colors.black),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
                               borderSide: const BorderSide(
-                                color: Colors.black,
+                                color: Colors.lightGreenAccent,
+                                width: 3.0,
                               ),
                             ),
                           ),
                           obscureText: true,
+                        ),
+                        SizedBox(
+                          height: 10.0,
                         ),
                         TextField(
                           controller: cnfpasswardcontroller,
@@ -154,41 +182,45 @@ class _RegisterState extends State<Register> {
                           textInputAction: TextInputAction.next,
                           style: const TextStyle(
                             fontSize: 25.0,
+                            color: Colors.black,
                           ),
                           decoration: InputDecoration(
                             labelText: "Confirm Password",
-                            errorText:
-                                validatePassword(cnfpasswardcontroller.text),
-                            errorStyle: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 15.0,
+                            labelStyle: const TextStyle(
+                              color: Colors.black,
                             ),
-                            errorBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                color: Colors.red,
-                              ),
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 10.0),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
+                              borderSide: const BorderSide(color: Colors.black),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
                               borderSide: const BorderSide(
-                                  width: 2.0, color: Colors.black),
+                                color: Colors.lightGreenAccent,
+                                width: 3.0,
+                              ),
                             ),
                           ),
                           obscureText: true,
                         ),
                         const SizedBox(
-                          height: 10.0,
+                          height: 30.0,
                         ),
                         SizedBox(
-                          width: 200.0,
-                          height: 50.0,
+                          width: 150.0,
+                          height: 40.0,
                           child: ElevatedButton.icon(
-                            onPressed: Register,
-                            icon: const Icon(Icons.lock_open),
+                            onPressed: () {
+                              Register();
+                            },
+                            icon: const Icon(
+                              Icons.lock_open,
+                              color: Colors.black,
+                            ),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  const Color.fromARGB(255, 0, 135, 117),
+                              backgroundColor: Colors.blue.shade600,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
@@ -196,8 +228,7 @@ class _RegisterState extends State<Register> {
                             label: const Text(
                               "Sign Up",
                               style: TextStyle(
-                                fontSize: 24.0,
-                              ),
+                                  fontSize: 20.0, color: Colors.black),
                             ),
                           ),
                         ),
@@ -209,13 +240,13 @@ class _RegisterState extends State<Register> {
                           children: [
                             const Text(
                               "Already have account,",
-                              style: TextStyle(fontSize: 20.0),
+                              style: TextStyle(fontSize: 16.0),
                             ),
                             InkWell(
                               child: const Text(
                                 " Login",
                                 style: TextStyle(
-                                  fontSize: 20.0,
+                                  fontSize: 16.0,
                                   color: Colors.black,
                                 ),
                               ),
@@ -240,7 +271,7 @@ class _RegisterState extends State<Register> {
     );
   }
 
-  Future Register() async {
+  Future<void> Register() async {
     try {
       if (passwordcontroller.text.trim() != cnfpasswardcontroller.text.trim()) {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -248,15 +279,34 @@ class _RegisterState extends State<Register> {
           backgroundColor: Colors.amber,
         ));
       } else {
-        FirebaseAuth.instance.createUserWithEmailAndPassword(
+        // Check if the username already exists in Firestore
+        var userCollection = FirebaseFirestore.instance.collection('users');
+        var querySnapshot = await userCollection
+            .where('name', isEqualTo: usernamecontroller.text.trim())
+            .get();
+
+        if (querySnapshot.docs.isNotEmpty) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text("Username Already Exists"),
+            backgroundColor: Colors.amber,
+          ));
+        } else {
+          // Create user with FirebaseAuth
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
             email: emailcontroller.text.trim(),
-            password: passwordcontroller.text.trim());
-        FirebaseFirestore.instance.collection('users').add({
-          'name': usernamecontroller.text.trim(),
-          'email': emailcontroller.text.trim(),
-        });
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => const Login()));
+            password: passwordcontroller.text.trim(),
+          );
+
+          // Add user details to Firestore
+          await userCollection.add({
+            'name': usernamecontroller.text.trim(),
+            'email': emailcontroller.text.trim(),
+          });
+
+          // Navigate to login screen
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => const Login()));
+        }
       }
     } on FirebaseAuthException catch (ex) {
       if (ex.code == 'email-already-in-use') {
