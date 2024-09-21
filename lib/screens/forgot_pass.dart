@@ -63,7 +63,7 @@ class _ForgotPageState extends State<ForgotPage> {
             padding: const EdgeInsets.all(30.0),
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
-            decoration: BoxDecoration(color: Colors.black),
+            decoration: const BoxDecoration(color: Colors.black),
             child: Center(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -142,15 +142,15 @@ class _ForgotPageState extends State<ForgotPage> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30.0,
                   ),
                   InkWell(
                     onTap: () {
                       Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => Login()));
+                          MaterialPageRoute(builder: (context) => const Login()));
                     },
-                    child: Text(
+                    child: const Text(
                       "Back to Login",
                       style: TextStyle(color: Colors.white, fontSize: 18.0),
                     ),

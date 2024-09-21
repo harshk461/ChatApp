@@ -36,12 +36,12 @@ class _RegisterState extends State<Register> {
             child: Column(
               children: [
                 Container(
-                  decoration: BoxDecoration(color: Colors.black),
+                  decoration: const BoxDecoration(color: Colors.black),
                   width: MediaQuery.of(context).size.width,
                   padding: const EdgeInsets.all(20.0),
-                  child: Column(
+                  child: const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       SizedBox(
                         height: 20.0,
                       ),
@@ -71,7 +71,7 @@ class _RegisterState extends State<Register> {
                     padding: const EdgeInsets.all(20.0),
                     decoration: BoxDecoration(
                       color: Colors.blue.shade800,
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(40.0),
                           topRight: Radius.circular(40.0)),
                     ),
@@ -173,7 +173,7 @@ class _RegisterState extends State<Register> {
                           ),
                           obscureText: true,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10.0,
                         ),
                         TextField(

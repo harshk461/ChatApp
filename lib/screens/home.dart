@@ -19,14 +19,35 @@ class _HomeState extends State<Home> {
   Stream<QuerySnapshot>? chatsnapshots;
 
   setCurrentUser() async {
-    return await FirebaseFirestore.instance
-        .collection("users")
-        .where('email', isEqualTo: FirebaseAuth.instance.currentUser!.email)
-        .get()
-        .then((value) => {
-              Constants.UserMail = value.docs[0]['email'],
-              Constants.UserName = value.docs[0]['name']
-            });
+    try {
+      final user = FirebaseAuth.instance.currentUser;
+      // print(user);
+      if (user == null) {
+        print("No user is currently signed in.");
+        return;
+      }
+
+      final querySnapshot = await FirebaseFirestore.instance
+          .collection("users")
+          .where('email', isEqualTo: user.email)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        final userData = querySnapshot.docs[0].data();
+
+        if (userData.containsKey('email') && userData.containsKey('name')) {
+          Constants.UserMail = userData['email'];
+          Constants.UserName = userData['name'];
+          print("User data successfully loaded.");
+        } else {
+          print("Email or name field is missing in the user document.");
+        }
+      } else {
+        print("No matching user found in the Firestore.");
+      }
+    } catch (e) {
+      print("Error retrieving user data: $e");
+    }
   }
 
   Widget ChatRoomList() {
@@ -76,19 +97,29 @@ class _HomeState extends State<Home> {
   }
 
   getUserInfo() async {
-    String username = '';
-    await FirebaseFirestore.instance
-        .collection("users")
-        .where('email', isEqualTo: FirebaseAuth.instance.currentUser!.email)
-        .get()
-        .then((value) {
-      username = value.docs[0]['name'];
-    });
-    return getChatRoom(username).then((value) {
-      setState(() {
-        chatsnapshots = value;
+    if (FirebaseAuth.instance.currentUser != null) {
+      String username = '';
+      await FirebaseFirestore.instance
+          .collection("users")
+          .where('email', isEqualTo: FirebaseAuth.instance.currentUser!.email)
+          .get()
+          .then((value) {
+        username = value.docs[0]['name'];
       });
-    });
+      return getChatRoom(username).then((value) {
+        setState(() {
+          chatsnapshots = value;
+        });
+      });
+    } else {
+      // Handle the case where no user is logged in (e.g., navigate to login)
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const Login(),
+        ),
+      );
+    }
   }
 
   getChatRoom(String? username) async {
@@ -162,9 +193,9 @@ class _HomeState extends State<Home> {
                   borderRadius: BorderRadius.circular(10.0),
                   color: Colors.blue.shade900,
                 ),
-                child: Row(
+                child: const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
+                  children: [
                     Text(
                       "Chats",
                       style: TextStyle(fontSize: 18.0),

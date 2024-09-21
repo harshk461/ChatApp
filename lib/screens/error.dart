@@ -10,10 +10,10 @@ class ErrorPage extends StatelessWidget {
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        child: Center(
+        child: const Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
+            children: [
               SpinKitFadingFour(
                 color: Colors.red,
                 size: 200.0,

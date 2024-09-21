@@ -139,7 +139,7 @@ class _ChatRoomState extends State<ChatRoom> {
         ],
       ),
       body: Column(children: [
-        SizedBox(
+        const SizedBox(
           height: 10.0,
         ),
         Expanded(child: ChatMessageList()),
@@ -218,7 +218,7 @@ class MessageTile extends StatelessWidget {
         decoration: BoxDecoration(
           color: isSentByMe
               ? Colors.blue.shade900
-              : Color.fromARGB(255, 47, 55, 58),
+              : const Color.fromARGB(255, 47, 55, 58),
           borderRadius: isSentByMe
               ? const BorderRadius.only(
                   topRight: Radius.circular(12),

@@ -60,12 +60,12 @@ class _LoginState extends State<Login> {
             child: Column(
               children: [
                 Container(
-                  decoration: BoxDecoration(color: Colors.black),
+                  decoration: const BoxDecoration(color: Colors.black),
                   width: MediaQuery.of(context).size.width,
                   padding: const EdgeInsets.all(20.0),
-                  child: Column(
+                  child: const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text(
                         "Welcome",
                         style: TextStyle(
@@ -96,7 +96,7 @@ class _LoginState extends State<Login> {
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                       color: Colors.blue.shade800,
-                      borderRadius: BorderRadius.only(
+                      borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(40.0),
                           topRight: Radius.circular(40.0)),
                     ),
@@ -306,7 +306,7 @@ class _LoginState extends State<Login> {
         email: emailcontroller.text.trim(),
         password: passwordcontroller.text.trim(),
       );
-      Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => const Home()));
     } on FirebaseAuthException catch (ex) {
       if (ex.code.toString() == 'user-not-found') {
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
